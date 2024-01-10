@@ -1,4 +1,4 @@
-#!/home/ubuntu/environment/api_rest/venv/bin/python
+#!/home/ubuntu/environment/api_rest_flask_study/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

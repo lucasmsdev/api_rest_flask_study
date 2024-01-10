@@ -1,10 +1,10 @@
+import uuid
 from flask import Flask, request
+from flask_smorest import abort
 from db import items, stores
 
 app = Flask(__name__)
 
-
-    
 
 #buscar lojas
 @app.get("/store")
@@ -16,7 +16,7 @@ def get_store(store_id):
     try:
         return stores[store_id]
     except KeyError:
-        return {"message": "Store not found"}, 404
+        abort(404,message="Storage not found")
         
 
 #criar lojas
@@ -38,7 +38,7 @@ def create_item(name):
             new_item = {"name": request_data["name"], "price": request_data["price"]}
             store["items"].append(new_item)
             return new_item, 201
-    return {"message": "Store not found" }, 404
+    abort(404,message="Storage not found")
     
 
 #buscar items em uma loja especifica   
@@ -47,5 +47,10 @@ def get_item_in_store(name):
     for store in stores:
         if store["name"] == name:
             return {"items": store["items"]}
-    return {"message": "Store not found"}, 404
-            
+    abort(404,message="Storage not found")
+    
+    
+    
+        
+if __name__ == '__main__':
+    app.run(debug=True, port=8000)
